@@ -34,5 +34,15 @@ Thermostat.prototype = {
 
   setDefault: function(){
     this.temperature = 20
+  },
+
+  energyUsage: function(){
+    if(this.temperature < 18) {
+      return "green"
+    } else if(this.temperature < 25) {
+      return "black"
+    } else {
+      return "red"
+    }   
   }
 };

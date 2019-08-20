@@ -61,4 +61,21 @@ describe('Thermostat:', function(){
       })
     })
   });
+
+  describe('#energyUsage', function(){
+    it('returns green when at low usage', function(){
+      thermostat.temperature = 17
+      expect(thermostat.energyUsage()).toEqual("green")
+    });
+
+    it('returns black when at medium usage', function(){
+      thermostat.temperature = 24
+      expect(thermostat.energyUsage()).toEqual("black")
+    });
+
+    it('returns red when at high usage', function(){
+      thermostat.temperature = 25
+      expect(thermostat.energyUsage()).toEqual("red")
+    });
+  });
 });

@@ -49,4 +49,18 @@ describe('Feature Test:', function(){
     }
     expect(function(){thermostat.raiseTemperature();}).toThrowError('Cannot raise temperature: At Maximum')
   });
+
+  it('energy use is indicated with a light', function(){
+    thermostat.switchPowerSaving();
+    for(var i = 1; i <= 3; i++) {
+      thermostat.lowerTemperature()
+    }
+    expect(thermostat.energyUsage()).toEqual("green")
+    for(var i = 1; i <= 7; i++) {
+      thermostat.raiseTemperature()
+    }
+    expect(thermostat.energyUsage()).toEqual("black")
+    thermostat.raiseTemperature()
+    expect(thermostat.energyUsage()).toEqual("red")
+  });
 });
