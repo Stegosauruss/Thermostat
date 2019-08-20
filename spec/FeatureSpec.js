@@ -11,6 +11,13 @@ describe('Feature Test:', function(){
     expect(thermostat.temperature).toEqual(20);
   });
 
+  it('The temperature can be reset to default', function() {
+    thermostat.raiseTemperature()
+    thermostat.raiseTemperature()
+    thermostat.setDefault()
+    expect(thermostat.temperature).toEqual(20);
+  });
+
   it('The temperature can be raised', function(){
     thermostat.raiseTemperature()
     expect(thermostat.temperature).toEqual(21);
