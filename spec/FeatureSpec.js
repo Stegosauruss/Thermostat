@@ -8,46 +8,46 @@ describe('Feature Test:', function(){
   });
 
   it('The thermostat has a default temperature', function() {
-    expect(thermostat.temperature).toEqual(20);
+    expect(thermostat.getCurrentTemperature()).toEqual(20);
   });
 
   it('The temperature can be reset to default', function() {
     thermostat.raiseTemperature()
     thermostat.raiseTemperature()
-    thermostat.setDefault()
-    expect(thermostat.temperature).toEqual(20);
+    thermostat.setDefaultTemperature()
+    expect(thermostat.getCurrentTemperature()).toEqual(20);
   });
 
   it('The temperature can be raised', function(){
     thermostat.raiseTemperature()
-    expect(thermostat.temperature).toEqual(21);
+    expect(thermostat.getCurrentTemperature()).toEqual(21);
   });
 
   it('The temperature can be lowered', function(){
     thermostat.lowerTemperature()
-    expect(thermostat.temperature).toEqual(19);
+    expect(thermostat.getCurrentTemperature()).toEqual(19);
   });
 
   it('the temperature cannot be lowered below min temperature', function(){
-    for(var i = 1; i <= 10; i++) {
-      thermostat.lowerTemperature()
+    for(var i = 1; i <= 11; i++) {
+      thermostat.lowerTemperature();
     }
-    expect(function(){thermostat.lowerTemperature();}).toThrowError('Cannot lower temperature: At Minimum')
+    expect(thermostat.getCurrentTemperature()).toEqual(10);
   });
 
   it('with power saving on there is a max temperature', function(){
-    for(var i = 1; i <= 5; i++) {
+    for(var i = 1; i <= 6; i++) {
       thermostat.raiseTemperature()
     }
-    expect(function(){thermostat.raiseTemperature();}).toThrowError('Cannot raise temperature: At Maximum')
+    expect(thermostat.getCurrentTemperature()).toEqual(25);
   });
 
   it('with power saving off there is a max temperature', function(){
     thermostat.switchPowerSaving();
-    for(var i = 1; i <= 12; i++) {
+    for(var i = 1; i <= 13; i++) {
       thermostat.raiseTemperature()
     }
-    expect(function(){thermostat.raiseTemperature();}).toThrowError('Cannot raise temperature: At Maximum')
+    expect(thermostat.getCurrentTemperature()).toEqual(32);
   });
 
   it('energy use is indicated with a light', function(){
@@ -62,5 +62,20 @@ describe('Feature Test:', function(){
     expect(thermostat.energyUsage()).toEqual("black")
     thermostat.raiseTemperature()
     expect(thermostat.energyUsage()).toEqual("red")
+  });
+
+  it('is on by default', function() {
+    expect(thermostat.isPowerSavingMode()).toBe(true);
+  });
+
+  it('can be switched off', function() {
+    thermostat.switchPowerSaving();
+    expect(thermostat.isPowerSavingMode()).toBe(false);
+  });
+
+  it('can be switched on again', function() {
+    thermostat.switchPowerSaving();
+    thermostat.switchPowerSaving();
+    expect(thermostat.isPowerSavingMode()).toBe(true);
   });
 });

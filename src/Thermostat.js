@@ -1,48 +1,60 @@
 'use strict';
 
 function Thermostat(){
-  this.temperature = 20;
-  this.minTemperature = 10;
-  this.powerSaving = true;
+  this.DEFAULT_TEMPERATURE = 20;
+  this.MAX_LIMIT_PSM = 25
+  this.MAX_LIMIT = 32
+  this.MIN_TEMPERATURE = 10
+  this.MEDIUM_ENERGY_LIMIT = 18
+  this._temperature = this.DEFAULT_TEMPERATURE;
+  this._powerSaving = true;
 };
 
 Thermostat.prototype = {
+  getCurrentTemperature: function() {
+    return this._temperature
+  },
+
   raiseTemperature: function(){
-    if(this.temperature == this.maxTemperature()) {
-      throw new Error('Cannot raise temperature: At Maximum')
+    if(this._temperature == this.maxTemperature()) {
+      return
     };
-    this.temperature++
+    this._temperature++;
   },
 
   lowerTemperature: function(){
-    if(this.temperature == this.minTemperature) {
-      throw new Error('Cannot lower temperature: At Minimum')
+    if(this._temperature == this.MIN_TEMPERATURE) {
+      return
     };
-    this.temperature--
+    this._temperature--;
   },
 
   maxTemperature: function(){
-    if(this.powerSaving == true){
-      return 25
+    if(this._powerSaving == true){
+      return this.MAX_LIMIT_PSM;
     };
-    return 32
+    return this.MAX_LIMIT;
+  },
+
+  isPowerSavingMode: function(){
+    return this._powerSaving === true;
   },
 
   switchPowerSaving: function(){
-    this.powerSaving = !this.powerSaving
+    this._powerSaving = !this._powerSaving;
   },
 
-  setDefault: function(){
-    this.temperature = 20
+  setDefaultTemperature: function(){
+    this._temperature = this.DEFAULT_TEMPERATURE;
   },
 
   energyUsage: function(){
-    if(this.temperature < 18) {
-      return "green"
-    } else if(this.temperature < 25) {
-      return "black"
+    if(this._temperature < this.MEDIUM_ENERGY_LIMIT) {
+      return "green";
+    } else if(this._temperature < this.MAX_LIMIT_PSM) {
+      return "black";
     } else {
-      return "red"
+      return "red";
     }   
   }
 };
