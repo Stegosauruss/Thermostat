@@ -42,6 +42,10 @@ Thermostat.prototype = {
 
   switchPowerSaving: function(){
     this._powerSaving = !this._powerSaving;
+
+    if(this._powerSaving && this._temperature > 25) {
+      this._temperature = 25
+    }
   },
 
   setDefaultTemperature: function(){

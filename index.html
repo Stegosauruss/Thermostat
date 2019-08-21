@@ -1,19 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
+<head>
+    <meta charset="utf-8">
     <title>Thermostat</title>
-  </head>
-  <body>
-    <section>
-      <h1 id="temperature"></h1>
-      <p>
+    <script src="jquery.js"></script>
+    <script src="src/thermostat.js"></script>
+    <script src="src/interface.js"></script>
+</head>
+<body>
+    <h1 id="temperature">20</h1>
+    <p>
         <button id="raise-temperature">+</button>
         <button id="lower-temperature">-</button>
         <button id="set-default-temperature">reset</button>
-        power saving mode is <span id="power-saving-status">on</span>
-        <button id="switch-power-saving">PSM</button>
+        power saving mode is<button id="switch-power-saving">ON</button>
       </p>
-    </section>
-    <script src="js/thermostat.js"></script>
-  </body>
+
+</body>
 </html>
