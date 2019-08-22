@@ -2,14 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="css" href="style.css">
   <title>Thermostat</title>
   <script src="jquery.js"></script>
-  <script src="src/thermostat.js"></script>
-  <script src="src/interface.js"></script>
+  <script src="thermostat.js"></script>
+  <script src="interface.js"></script>
 </head>
 <body>
-  <h1 id="temperature">20</h1>
+  <h1 id="temperature"><%= @temperature %></h1>
   <section>
     <h1>Outside temperature: <span id="outside-temperature"></span></h1>
     <select id="current-city">
@@ -27,7 +27,13 @@
     <button id="raise-temperature">+</button>
     <button id="lower-temperature">-</button>
     <button id="set-default-temperature">reset</button>
-    power saving mode is<button id="switch-power-saving">ON</button>
+    power saving mode is<button id="switch-power-saving">
+    <% if @power_saving === "ON" %>
+    ON
+    <% else %>
+    OFF
+    <% end %>
+    </button>
   </p>
 
 </body>

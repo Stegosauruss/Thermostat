@@ -1,6 +1,32 @@
 $( document ).ready(function() {
   var thermostat = new Thermostat
 
+  var temp = $("#temperature").text();
+  var psm = $("#switch-power-saving").text();
+
+  if(psm === "OFF") {
+    console.log("Hi")
+    thermostat._powerSaving = false;
+  }
+
+  thermostat._temperature = temp
+
+  $(window).on("beforeunload", () => {
+    var on_or_off;
+    
+    if (thermostat.isPowerSavingMode() === true) {
+      on_or_off = "ON";
+    } else {
+      on_or_off = "OFF";
+    }
+    $.ajax({
+      type: "POST",
+      url: "/",
+      data: { temperature: thermostat.getCurrentTemperature(), power_saving: on_or_off },
+      async: false
+    });
+  });
+
   $( "#raise-temperature" ).click(function( event ) {
     thermostat.raiseTemperature();
     updateTemperature()
@@ -47,4 +73,5 @@ $( document ).ready(function() {
     var city = $('#current-city').val();
     displayWeather(city);
   })
+
 });
