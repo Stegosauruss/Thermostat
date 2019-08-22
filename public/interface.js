@@ -5,7 +5,6 @@ $( document ).ready(function() {
   var psm = $("#switch-power-saving").text();
 
   if(psm === "OFF") {
-    console.log("Hi")
     thermostat._powerSaving = false;
   }
 
