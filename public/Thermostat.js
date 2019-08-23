@@ -8,6 +8,7 @@ function Thermostat(){
   this.MEDIUM_ENERGY_LIMIT = 18
   this._temperature = this.DEFAULT_TEMPERATURE;
   this._powerSaving = true;
+  this.currentCity = "London"
 };
 
 Thermostat.prototype = {
@@ -60,5 +61,5 @@ Thermostat.prototype = {
     } else {
       return "red";
     }   
-  }
+  },
 };

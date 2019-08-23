@@ -6,10 +6,14 @@ class ThermostatWeb < Sinatra::Base
   post '/' do
     session[:temperature] = params[:temperature]
     session[:power_saving] = params[:power_saving]
+    session[:current_city] = params[:current_city]
+    session[:temp_color] = params[:temp_color]
+
     redirect '/'
   end
 
   get '/' do
+  
     if session[:temperature] == nil
       @temperature = 20
     else
@@ -20,6 +24,18 @@ class ThermostatWeb < Sinatra::Base
       @power_saving = "ON"
     else
       @power_saving = session[:power_saving]
+    end
+
+    if session[:current_city] == nil
+      @city = "London"
+    else
+      @city = session[:current_city]
+    end
+
+    if session[:temp_color] == nil
+      @temp_color = "black"
+    else
+      @temp_color = session[:temp_color]
     end
 
     erb :'index'

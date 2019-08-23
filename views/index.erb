@@ -2,39 +2,43 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="/style.css"> 
   <title>Thermostat</title>
   <script src="jquery.js"></script>
   <script src="thermostat.js"></script>
   <script src="interface.js"></script>
 </head>
-<body>
-  <h1 id="temperature"><%= @temperature %></h1>
-  <section>
-    <h1>Outside temperature: <span id="outside-temperature"></span></h1>
-    <select id="current-city">
-        <option value="Borough of Southend-on-Sea">Southend</option>
-        <option value="New York">New York</option>
-        <option value="Berlin">Berlin</option>
-        <option value="Tokyo">Tokyo</option>
-        <option value="Sydney">Sydney</option>
-        <option value="Los Angeles">Los Angeles</option>
-        <option value="Rio de Janeiro">Rio de Janeiro</option>
-        <option value="Lagos">Lagos</option>
-      </select>
-  </section>
-  <p>
-    <button id="raise-temperature">+</button>
-    <button id="lower-temperature">-</button>
-    <button id="set-default-temperature">reset</button>
-    power saving mode is<button id="switch-power-saving">
-    <% if @power_saving === "ON" %>
-    ON
-    <% else %>
-    OFF
-    <% end %>
-    </button>
-  </p>
 
-</body>
-</html>
+  <body>
+  <div class="box">
+    <h1 id="temperature" style="color: <%=@temp_color%>"><%= @temperature %></h1>
+    <section>
+      <h1>Outside temperature: <span id="outside-temperature"></span></h1>
+      <select id="current-city">
+          <option id="new-city" value=<%= @city %> > <%= @city %>  </option>
+          <option value="London">London</option>
+          <option value="New York">New York</option>
+          <option value="Berlin">Berlin</option>
+          <option value="Tokyo">Tokyo</option>
+          <option value="Sydney">Sydney</option>
+          <option value="Los Angeles">Los Angeles</option>
+          <option value="Rio de Janeiro">Rio de Janeiro</option>
+          <option value="Lagos">Lagos</option>
+        </select>
+      </section>
+      <p>
+        <button id="raise-temperature">+</button>
+        <button id="lower-temperature">-</button>
+        <button id="set-default-temperature">reset</button>
+        power saving mode is<button id="switch-power-saving">
+        <% if @power_saving === "ON" %>
+        ON
+        <% else %>
+        OFF
+        <% end %>
+        </button>
+      </p>
+      </div>
+    </body>
+
+  </html>

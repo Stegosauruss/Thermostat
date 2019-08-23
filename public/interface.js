@@ -3,12 +3,15 @@ $( document ).ready(function() {
 
   var temp = $("#temperature").text();
   var psm = $("#switch-power-saving").text();
+  var currentCity = $("#new-city").text();
 
+  thermostat._temperature = temp
+  thermostat.currentCity = currentCity
   if(psm === "OFF") {
     thermostat._powerSaving = false;
   }
 
-  thermostat._temperature = temp
+  displayWeather()
 
   $(window).on("beforeunload", () => {
     var on_or_off;
@@ -21,7 +24,12 @@ $( document ).ready(function() {
     $.ajax({
       type: "POST",
       url: "/",
-      data: { temperature: thermostat.getCurrentTemperature(), power_saving: on_or_off },
+      data: { 
+        temperature: thermostat.getCurrentTemperature(), 
+        power_saving: on_or_off, 
+        current_city: thermostat.currentCity, 
+        temp_color: thermostat.energyUsage()
+      },
       async: false
     });
   });
@@ -29,7 +37,6 @@ $( document ).ready(function() {
   $( "#raise-temperature" ).click(function( event ) {
     thermostat.raiseTemperature();
     updateTemperature()
-
   });
 
   $( "#lower-temperature" ).click(function( event ) {
@@ -57,8 +64,8 @@ $( document ).ready(function() {
     $('#temperature').css("color", thermostat.energyUsage())
   }
 
-  function displayWeather(city) {
-    var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
+  function displayWeather() {
+    var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + thermostat.currentCity;
     var token = '&appid=a3d9eb01d4de82b9b8d0849ef604dbed';
     var units = '&units=metric';
     $.get(url + token + units, function(data) {
@@ -66,11 +73,9 @@ $( document ).ready(function() {
     })
   }
 
-  displayWeather('Borough of Southend-on-Sea');
-
   $('#current-city').change(function() {
-    var city = $('#current-city').val();
-    displayWeather(city);
+    thermostat.currentCity = $('#current-city').val();
+    displayWeather(thermostat.currentCity);
   })
 
 });

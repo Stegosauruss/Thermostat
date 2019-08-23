@@ -1,0 +1,18 @@
+body {
+  float: center;
+  letter-spacing: 2px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  background-color: grey;
+}
+.box {
+  float: center;
+  width: 40%;
+  height: 40%;
+  margin: 10%;
+  background-color: white;
+}
